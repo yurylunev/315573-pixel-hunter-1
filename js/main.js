@@ -1,8 +1,6 @@
 'use strict';
-const order = [`intro`, `greeting`, `rules`, `game-1`, `game-2`, `game-3`, `stats`];
-const screens = order.map((screenName) => document.querySelector(`template#${screenName}`));
+const screens = [`intro`, `greeting`, `rules`, `game-1`, `game-2`, `game-3`, `stats`].map((screenName) => document.querySelector(`template#${screenName}`));
 const rootElement = document.querySelector(`#main`);
-const arrowsWrapper = document.createElement(`div`);
 const showScreen = (screenNumber) => {
   rootElement.innerHTML = ``;
   rootElement.appendChild((screens[screenNumber].content).cloneNode(true));
@@ -23,6 +21,7 @@ document.addEventListener(`keyup`, (event) => {
   showScreen(currentScreen);
 });
 
+const arrowsWrapper = document.createElement(`div`);
 arrowsWrapper.classList.add(`arrows__wrap`);
 arrowsWrapper.innerHTML = `<style>
     .arrows__wrap {
