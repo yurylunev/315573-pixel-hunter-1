@@ -45,8 +45,8 @@ document.body.appendChild(arrowsWrapper);
 
 const arrowButtons = document.querySelectorAll(`button.arrows__btn`);
 arrowButtons[0].addEventListener(`click`, () => {
-  showScreen(currentScreen + 1);
+  showScreen(currentScreen - 1);
 });
 arrowButtons[1].addEventListener(`click`, () => {
-  showScreen(currentScreen - 1);
+  showScreen(currentScreen + 1);
 });
