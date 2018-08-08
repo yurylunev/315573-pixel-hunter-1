@@ -1,24 +1,26 @@
 'use strict';
 const screens = [`intro`, `greeting`, `rules`, `game-1`, `game-2`, `game-3`, `stats`].map((screenName) => document.querySelector(`template#${screenName}`));
 const rootElement = document.querySelector(`#main`);
-const showScreen = (screenNumber) => {
-  rootElement.innerHTML = ``;
-  rootElement.appendChild((screens[screenNumber].content).cloneNode(true));
+let currentScreen;
+const showScreen = (screenNumber = 0) => {
+  if (currentScreen !== screenNumber) {
+    currentScreen = Math.min(screens.length - 1, Math.max(0, screenNumber));
+    rootElement.innerHTML = ``;
+    rootElement.appendChild((screens[currentScreen].content).cloneNode(true));
+  }
 };
 
-let currentScreen = 0;
-showScreen(currentScreen);
+showScreen();
 
 document.addEventListener(`keyup`, (event) => {
   switch (event.key) {
     case `ArrowRight`:
-      currentScreen = Math.min(currentScreen + 1, screens.length - 1);
+      showScreen(currentScreen + 1);
       break;
     case `ArrowLeft`:
-      currentScreen = Math.max(currentScreen - 1, 0);
+      showScreen(currentScreen - 1);
       break;
   }
-  showScreen(currentScreen);
 });
 
 const arrowsWrapper = document.createElement(`div`);
@@ -43,10 +45,8 @@ document.body.appendChild(arrowsWrapper);
 
 const arrowButtons = document.querySelectorAll(`button.arrows__btn`);
 arrowButtons[0].addEventListener(`click`, () => {
-  currentScreen = Math.max(currentScreen - 1, 0);
-  showScreen(currentScreen);
+  showScreen(currentScreen + 1);
 });
 arrowButtons[1].addEventListener(`click`, () => {
-  currentScreen = Math.min(currentScreen + 1, screens.length - 1);
-  showScreen(currentScreen);
+  showScreen(currentScreen - 1);
 });
