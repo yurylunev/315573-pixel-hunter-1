@@ -12,10 +12,10 @@ showScreen(currentScreen);
 document.addEventListener(`keyup`, (event) => {
   switch (event.key) {
     case `ArrowRight`:
-      currentScreen = Math.min(++currentScreen, screens.length - 1);
+      currentScreen = Math.min(currentScreen + 1, screens.length - 1);
       break;
     case `ArrowLeft`:
-      currentScreen = Math.max(--currentScreen, 0);
+      currentScreen = Math.max(currentScreen - 1, 0);
       break;
   }
   showScreen(currentScreen);
@@ -43,10 +43,10 @@ document.body.appendChild(arrowsWrapper);
 
 const arrowButtons = document.querySelectorAll(`button.arrows__btn`);
 arrowButtons[0].addEventListener(`click`, () => {
-  currentScreen = Math.max(--currentScreen, 0);
+  currentScreen = Math.max(currentScreen - 1, 0);
   showScreen(currentScreen);
 });
 arrowButtons[1].addEventListener(`click`, () => {
-  currentScreen = Math.min(++currentScreen, screens.length - 1);
+  currentScreen = Math.min(currentScreen + 1, screens.length - 1);
   showScreen(currentScreen);
 });
