@@ -1,5 +1,4 @@
 import {getElementFromTemplate, showScreen} from "./utlis";
-import game3 from "./screen-game-3";
 import greeting from "./screen-greeting";
 
 const stats = getElementFromTemplate(`  <header class="header">
@@ -114,7 +113,7 @@ const stats = getElementFromTemplate(`  <header class="header">
     </table>
   </section>`);
 
-(game3.querySelector(`button.back`)).addEventListener(`click`, () => {
+(stats.querySelector(`button.back`)).addEventListener(`click`, () => {
   showScreen(greeting);
 });
 
