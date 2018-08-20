@@ -1,7 +1,8 @@
-import {getElementFromTemplate, showScreen} from "./utlis";
+import {showScreen} from "./utlis";
 import rules from "./screen-rules";
 
-const greeting = getElementFromTemplate(` <section class="greeting central--blur">
+const greeting = document.createElement(`div`);
+greeting.innerHTML = ` <section class="greeting central--blur">
     <img class="greeting__logo" src="img/logo_ph-big.svg" width="201" height="89" alt="Pixel Hunter">
     <div class="greeting__asterisk asterisk"><span class="visually-hidden">Я просто красивая звёздочка</span>*</div>
     <div class="greeting__challenge">
@@ -20,7 +21,7 @@ const greeting = getElementFromTemplate(` <section class="greeting central--blur
         <use xlink:href="img/sprite.svg#arrow-right"></use>
       </svg>
     </button>
-  </section>`);
+  </section>`;
 
 (greeting.querySelector(`.greeting__continue`)).addEventListener(`click`, () => {
   showScreen(rules);

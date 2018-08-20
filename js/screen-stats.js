@@ -1,7 +1,8 @@
-import {getElementFromTemplate, showScreen} from "./utlis";
+import {showScreen} from "./utlis";
 import greeting from "./screen-greeting";
 
-const stats = getElementFromTemplate(`  <header class="header">
+const stats = document.createElement(`div`);
+stats.innerHTML = `  <header class="header">
     <button class="back">
       <span class="visually-hidden">Вернуться к началу</span>
       <svg class="icon" width="45" height="45" viewBox="0 0 45 45" fill="#000000">
@@ -111,7 +112,7 @@ const stats = getElementFromTemplate(`  <header class="header">
         <td colspan="5" class="result__total  result__total--final">950</td>
       </tr>
     </table>
-  </section>`);
+  </section>`;
 
 (stats.querySelector(`button.back`)).addEventListener(`click`, () => {
   showScreen(greeting);

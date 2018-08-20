@@ -1,8 +1,9 @@
-import {getElementFromTemplate, showScreen} from "./utlis";
+import {showScreen} from "./utlis";
 import game2 from "./screen-game-2";
 import greeting from "./screen-greeting";
 
-const game1 = getElementFromTemplate(`  <header class="header">
+const game1 = document.createElement(`div`);
+game1.innerHTML = `  <header class="header">
     <button class="back">
       <span class="visually-hidden">Вернуться к началу</span>
       <svg class="icon" width="45" height="45" viewBox="0 0 45 45" fill="#000000">
@@ -57,7 +58,7 @@ const game1 = getElementFromTemplate(`  <header class="header">
       <li class="stats__result stats__result--unknown"></li>
       <li class="stats__result stats__result--unknown"></li>
     </ul>
-  </section>`);
+  </section>`;
 
 const radios = [...game1.querySelectorAll(`input[type=radio]`)];
 radios.forEach((radio) => {
