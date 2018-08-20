@@ -1,9 +1,9 @@
-import {showScreen} from "./utlis";
+import {getElementFromTemplate, showScreen} from "./utlis";
 import game3 from "./screen-game-3";
 import greeting from "./screen-greeting";
 
-const game2 = document.createElement(`div`);
-game2.innerHTML = `  <header class="header">
+const game2 = () => {
+  const game2Element = getElementFromTemplate(`  <header class="header">
     <button class="back">
       <span class="visually-hidden">Вернуться к началу</span>
       <svg class="icon" width="45" height="45" viewBox="0 0 45 45" fill="#000000">
@@ -47,17 +47,18 @@ game2.innerHTML = `  <header class="header">
       <li class="stats__result stats__result--fast"></li>
       <li class="stats__result stats__result--unknown"></li>
     </ul>
-  </section>`;
+  </section>`);
 
-const radios = [...game2.querySelectorAll(`.game__answer`)];
-radios.forEach((radio) => {
-  radio.addEventListener(`click`, () => {
-    showScreen(game3);
+  [...game2Element.querySelectorAll(`.game__answer`)].forEach((radio) => {
+    radio.addEventListener(`click`, () => {
+      showScreen(game3());
+    });
   });
-});
 
-(game2.querySelector(`button.back`)).addEventListener(`click`, () => {
-  showScreen(greeting);
-});
+  (game2Element.querySelector(`button.back`)).addEventListener(`click`, () => {
+    showScreen(greeting());
+  });
+  return game2Element;
+};
 
 export default game2;

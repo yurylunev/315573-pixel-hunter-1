@@ -1,9 +1,9 @@
-import {showScreen} from "./utlis";
+import {getElementFromTemplate, showScreen} from "./utlis";
 import game1 from "./screen-game-1";
 import greeting from "./screen-greeting";
 
-const rules = document.createElement(`div`);
-rules.innerHTML = `  <header class="header">
+const rules = () => {
+  const rulesElement = getElementFromTemplate(`  <header class="header">
     <button class="back">
       <span class="visually-hidden">Вернуться к началу</span>
       <svg class="icon" width="45" height="45" viewBox="0 0 45 45" fill="#000000">
@@ -29,25 +29,27 @@ rules.innerHTML = `  <header class="header">
       <input class="rules__input" type="text" placeholder="Ваше Имя">
       <button class="rules__button  continue" type="submit" disabled>Go!</button>
     </form>
-  </section>`;
+  </section>`);
 
-(rules.querySelector(`.rules__button`)).addEventListener(`click`, () => {
-  showScreen(game1);
-});
+  (rulesElement.querySelector(`.rules__button`)).addEventListener(`click`, () => {
+    showScreen(game1());
+  });
 
-const rulesFormInput = rules.querySelector(`.rules__input`);
-const rulesFormButton = rules.querySelector(`.rules__button`);
+  const rulesFormInput = rulesElement.querySelector(`.rules__input`);
+  const rulesFormButton = rulesElement.querySelector(`.rules__button`);
 
-rulesFormInput.addEventListener(`keyup`, () => {
-  if (rulesFormInput.value) {
-    rulesFormButton.removeAttribute(`disabled`);
-  } else {
-    rulesFormButton.setAttribute(`disabled`, `true`);
-  }
-});
+  rulesFormInput.addEventListener(`keyup`, () => {
+    if (rulesFormInput.value) {
+      rulesFormButton.removeAttribute(`disabled`);
+    } else {
+      rulesFormButton.setAttribute(`disabled`, `true`);
+    }
+  });
 
-(rules.querySelector(`button.back`)).addEventListener(`click`, () => {
-  showScreen(greeting);
-});
+  (rulesElement.querySelector(`button.back`)).addEventListener(`click`, () => {
+    showScreen(greeting());
+  });
+  return rulesElement;
+};
 
 export default rules;

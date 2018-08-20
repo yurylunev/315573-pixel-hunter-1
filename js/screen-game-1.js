@@ -1,9 +1,9 @@
-import {showScreen} from "./utlis";
+import {getElementFromTemplate, showScreen} from "./utlis";
 import game2 from "./screen-game-2";
 import greeting from "./screen-greeting";
 
-const game1 = document.createElement(`div`);
-game1.innerHTML = `  <header class="header">
+const game1 = () => {
+  const game1Element = getElementFromTemplate(`  <header class="header">
     <button class="back">
       <span class="visually-hidden">Вернуться к началу</span>
       <svg class="icon" width="45" height="45" viewBox="0 0 45 45" fill="#000000">
@@ -58,19 +58,21 @@ game1.innerHTML = `  <header class="header">
       <li class="stats__result stats__result--unknown"></li>
       <li class="stats__result stats__result--unknown"></li>
     </ul>
-  </section>`;
+  </section>`);
 
-const radios = [...game1.querySelectorAll(`input[type=radio]`)];
-radios.forEach((radio) => {
-  radio.addEventListener(`click`, () => {
-    if ([...radios.filter((answer) => answer.checked)].length === 2) {
-      showScreen(game2);
-    }
+  const answers = [...game1Element.querySelectorAll(`.game__answer`)];
+  answers.forEach((label) => {
+    label.control.addEventListener(`click`, () => {
+      if ([...answers.filter((answer) => answer.control.checked)].length === 2) {
+        showScreen(game2());
+      }
+    });
   });
-});
 
-(game1.querySelector(`button.back`)).addEventListener(`click`, () => {
-  showScreen(greeting);
-});
+  (game1Element.querySelector(`button.back`)).addEventListener(`click`, () => {
+    showScreen(greeting());
+  });
+  return game1Element;
+};
 
 export default game1;

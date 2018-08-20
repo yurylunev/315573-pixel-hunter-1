@@ -4,4 +4,10 @@ const showScreen = (template) => {
   rootElement.appendChild(template);
 };
 
-export {showScreen};
+const getElementFromTemplate = (template) => {
+  const result = document.createElement(`div`);
+  result.innerHTML = template;
+  return result;
+};
+
+export {getElementFromTemplate, showScreen};
