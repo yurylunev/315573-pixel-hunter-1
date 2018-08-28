@@ -1,9 +1,20 @@
 import {assert} from 'chai';
+import {INITIAL_GAME} from "./game-data";
 
-describe(`Array`, () => {
-  describe(`#indexOf()`, () => {
-    it(`should return -1 when the value is not present`, () => {
-      assert.equal(-1, [1, 2, 3].indexOf(4));
+describe(`Game initial state`, () => {
+  describe(`Level`, () => {
+    it(`Should be number`, () => {
+      assert.isNumber(INITIAL_GAME.level);
+    });
+  });
+  describe(`Lives`, () => {
+    it(`Should be number`, () => {
+      assert.isNumber(INITIAL_GAME.lives);
+    });
+  });
+  describe(`Time`, () => {
+    it(`Should be number`, () => {
+      assert.isNumber(INITIAL_GAME.time);
     });
   });
 });
