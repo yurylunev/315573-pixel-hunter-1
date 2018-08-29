@@ -10,14 +10,11 @@ const addAnswer = (game, answer) => {
 };
 
 const countScore = (answers, lives) => {
-  if (answers.length < 10) {
+  if ((answers.length < 10) || (lives < 0)) {
     return -1;
   }
   let score = 0;
   for (let answer of answers) {
-    if (lives < 0) {
-      return -1;
-    }
     switch (answer) {
       case `fast`:
         score += 150;
@@ -31,6 +28,9 @@ const countScore = (answers, lives) => {
       case `wrong`:
         lives = lives - 1;
         break;
+    }
+    if (lives < 0) {
+      return -1;
     }
   }
   return score + lives * 50;
