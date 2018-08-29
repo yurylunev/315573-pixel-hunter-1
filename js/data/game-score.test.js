@@ -1,30 +1,44 @@
 import {assert} from "chai";
-import {countScore} from "./game-score";
+import {addAnswer, countScore} from "./game-score";
+import {INITIAL_GAME} from "./game-data";
 
-describe(`Count score validator`, () => {
-
-  it(`Less then 10 right answers `, () => {
-    assert.equal(countScore([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1], 1), -1);
-    assert.equal(countScore([10, 12, 20, 30, 9, 7, 25, 21, 10, -1], 2), -1);
-    assert.equal(countScore([10, 12, -1, 30, 9, 7, 25, 21, 10, -1], 3), -1);
+describe(`Check count score`, () => {
+  it(`Should be correct answers array when add new answer`, () => {
+    assert.deepEqual(addAnswer(addAnswer(addAnswer(INITIAL_GAME, `wrong`), `correct`), `fast`)
+      .answers, [`wrong`, `correct`, `fast`]);
+    assert.deepEqual(addAnswer(addAnswer(addAnswer(addAnswer(addAnswer(addAnswer(addAnswer(addAnswer(addAnswer(addAnswer(INITIAL_GAME, `wrong`), `correct`), `fast`), `slow`), `correct`), `fast`), `slow`), `wrong`), `correct`), `correct`)
+      .answers, [`wrong`, `correct`, `fast`, `slow`, `correct`, `fast`, `slow`, `wrong`, `correct`, `correct`]);
   });
-
-  it(`10 right answers with average time`, () => {
-    assert.equal(countScore([10, 12, 11, 13, 14, 17, 15, 18, 20, 16], 3), 1150);
-    assert.equal(countScore([15, 15, 15, 15, 15, 15, 15, 15, 15, 15], 3), 1150);
-    assert.equal(countScore([20, 20, 20, 20, 20, 20, 20, 20, 20, 20], 3), 1150);
-    assert.equal(countScore([10, 10, 10, 10, 10, 10, 10, 10, 10, 10], 3), 1150);
+  it(`Should not allow add incorrect answer value`, () => {
+    assert.throws(() => addAnswer(addAnswer(addAnswer(INITIAL_GAME, `wrong`), `correct`), `fasts`), `Incorrect answer value`);
+    assert.throws(() => addAnswer(addAnswer(addAnswer(INITIAL_GAME, ``), `correct`), `fast`), `Incorrect answer value`);
+    assert.throws(() => addAnswer(addAnswer(addAnswer(INITIAL_GAME, null), `correct`), `fast`), `Incorrect answer value`);
+    assert.throws(() => addAnswer(addAnswer(addAnswer(INITIAL_GAME, undefined), `correct`), `fast`), `Incorrect answer value`);
+    assert.throws(() => addAnswer(addAnswer(addAnswer(INITIAL_GAME, []), `correct`), `fast`), `Incorrect answer value`);
   });
-
-  it(`10 right fast answers`, () => {
-    assert.equal(countScore([1, 2, 3, 4, 5, 6, 7, 8, 9, 8], 1), 1550);
-    assert.equal(countScore([1, 2, 3, 4, 5, 6, 7, 8, 9, 8], 2), 1600);
-    assert.equal(countScore([1, 2, 3, 4, 5, 6, 7, 8, 9, 8], 3), 1650);
+  describe(`Answers less then 10`, () => {
+    it(`Should be -1`, () => {
+      assert.equal(countScore(addAnswer(addAnswer(addAnswer(addAnswer(addAnswer(addAnswer(addAnswer(addAnswer(addAnswer(INITIAL_GAME, `correct`), `correct`), `correct`), `correct`), `correct`), `correct`), `correct`), `correct`), `correct`)), -1);
+      assert.equal(countScore(addAnswer(INITIAL_GAME, `correct`)), -1);
+    });
   });
-
-  it(`10 right slow answers`, () => {
-    assert.equal(countScore([21, 22, 23, 24, 25, 26, 27, 28, 29, 28], 1), 550);
-    assert.equal(countScore([21, 22, 23, 24, 25, 26, 27, 28, 29, 28], 2), 600);
-    assert.equal(countScore([21, 22, 23, 24, 25, 26, 27, 28, 29, 28], 3), 650);
+  describe(`10 correct answers`, () => {
+    it(`Should be 1150`, () => {
+      assert.equal(countScore(addAnswer(addAnswer(addAnswer(addAnswer(addAnswer(addAnswer(addAnswer(addAnswer(addAnswer(addAnswer(INITIAL_GAME, `correct`), `correct`), `correct`), `correct`), `correct`), `correct`), `correct`), `correct`), `correct`), `correct`)), 1150);
+    });
+  });
+  describe(`Count score with any answers`, () => {
+    it(`Should be minimum score`, () => {
+      assert.equal(countScore(addAnswer(addAnswer(addAnswer(addAnswer(addAnswer(addAnswer(addAnswer(addAnswer(addAnswer(addAnswer(INITIAL_GAME, `wrong`), `slow`), `slow`), `slow`), `slow`), `slow`), `slow`), `wrong`), `slow`), `wrong`)), 350);
+    });
+    it(`Should be maximum score`, () => {
+      assert.equal(countScore(addAnswer(addAnswer(addAnswer(addAnswer(addAnswer(addAnswer(addAnswer(addAnswer(addAnswer(addAnswer(INITIAL_GAME, `fast`), `fast`), `fast`), `fast`), `fast`), `fast`), `fast`), `fast`), `fast`), `fast`)), 1650);
+    });
+    it(`Should be 1000 score`, () => {
+      assert.equal(countScore(addAnswer(addAnswer(addAnswer(addAnswer(addAnswer(addAnswer(addAnswer(addAnswer(addAnswer(addAnswer(INITIAL_GAME, `wrong`), `correct`), `fast`), `fast`), `slow`), `fast`), `fast`), `slow`), `fast`), `wrong`)), 1000);
+    });
+    it(`Should be -1 score, when no more lives`, () => {
+      assert.equal(countScore(addAnswer(addAnswer(addAnswer(addAnswer(addAnswer(addAnswer(addAnswer(addAnswer(addAnswer(addAnswer(INITIAL_GAME, `wrong`), `correct`), `fast`), `fast`), `slow`), `wrong`), `fast`), `slow`), `wrong`), `wrong`)), -1);
+    });
   });
 });

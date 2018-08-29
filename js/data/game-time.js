@@ -8,7 +8,7 @@ const changeTime = (game, time) => {
   if (time > 30) {
     throw new Error(`Time should be less 30 sec`);
   }
-  return Object.assign({}, game, {time});
+  return Object.freeze(Object.assign({}, game, {time}));
 };
 
 export {changeTime};

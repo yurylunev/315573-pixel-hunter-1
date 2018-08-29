@@ -6,15 +6,12 @@ describe(`Check level changer`, () => {
 
   it(`Should update level of the game`, () => {
     assert.equal(changeLevel(INITIAL_GAME, 1).level, 1);
-    assert.equal(changeLevel(INITIAL_GAME, 2).level, 2);
-    assert.equal(changeLevel(INITIAL_GAME, 10).level, 10);
-    assert.equal(changeLevel(INITIAL_GAME, 102).level, 102);
+    assert.equal(changeLevel(INITIAL_GAME, 3).level, 3);
   });
 
   it(`Should not allow set negative values`, () => {
     assert.throws(() => changeLevel(INITIAL_GAME, -1).level, /Level should not be negative value/);
     assert.throws(() => changeLevel(INITIAL_GAME, -10).level, /Level should not be negative value/);
-    assert.throws(() => changeLevel(INITIAL_GAME, -Infinity).level, /Level should not be negative value/);
   });
 
   it(`Should not allow set non number value`, () => {

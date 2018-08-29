@@ -5,7 +5,7 @@ const changeLives = (game, lives) => {
   if (lives < 0) {
     throw new Error(`Lives should not be negative value`);
   }
-  return Object.assign({}, game, {lives});
+  return Object.freeze(Object.assign({}, game, {lives}));
 };
 
 export {changeLives};
