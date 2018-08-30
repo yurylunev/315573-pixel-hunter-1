@@ -8,4 +8,8 @@ const changeLevel = (game, level) => {
   return Object.freeze(Object.assign({}, game, {level}));
 };
 
-export {changeLevel};
+const nextLevel = (game) => {
+  return changeLevel(game, game.level + 1);
+};
+
+export {changeLevel, nextLevel};

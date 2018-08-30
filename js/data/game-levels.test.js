@@ -1,6 +1,6 @@
 import {assert} from "chai";
 import {INITIAL_GAME} from "./game-data";
-import {changeLevel} from "./game-levels";
+import {changeLevel, nextLevel} from "./game-levels";
 
 describe(`Check level changer`, () => {
 
@@ -19,5 +19,13 @@ describe(`Check level changer`, () => {
     assert.throws(() => changeLevel(INITIAL_GAME, {}).level, /Level should be of type number/);
     assert.throws(() => changeLevel(INITIAL_GAME, undefined).level, /Level should be of type number/);
     assert.throws(() => changeLevel(INITIAL_GAME, null).level, /Level should be of type number/);
+  });
+
+  it(`Should next level, expect 1`, () => {
+    assert.equal(nextLevel(INITIAL_GAME).level, 1);
+  });
+
+  it(`Should next level, expect 2`, () => {
+    assert.equal(nextLevel(nextLevel(INITIAL_GAME)).level, 2);
   });
 });

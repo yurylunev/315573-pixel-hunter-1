@@ -8,4 +8,10 @@ const changeLives = (game, lives) => {
   return Object.freeze(Object.assign({}, game, {lives}));
 };
 
-export {changeLives};
+const decreaseLives = (game) => {
+  return Object.freeze(Object.assign({}, game, {lives: game.lives - 1}));
+};
+
+const isDead = (game) => (game.lives < 0);
+
+export {changeLives, decreaseLives, isDead};

@@ -10,5 +10,14 @@ const changeTime = (game, time) => {
   }
   return Object.freeze(Object.assign({}, game, {time}));
 };
+const tick = (game) => {
+  return changeTime(game, game.time - 1);
+};
+const warningTime = (game) => {
+  return game.time <= 5;
+};
+const isTimeOff = (game) => {
+  return game.time <= 0;
+};
 
-export {changeTime};
+export {changeTime, tick, warningTime, isTimeOff};

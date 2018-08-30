@@ -1,6 +1,6 @@
 import {assert} from "chai";
 import {INITIAL_GAME} from "./game-data";
-import {changeTime} from "./game-time";
+import {changeTime, isTimeOff, tick, warningTime} from "./game-time";
 
 describe(`Check time changer`, () => {
 
@@ -19,5 +19,33 @@ describe(`Check time changer`, () => {
     assert.throws(() => changeTime(INITIAL_GAME, {}).time, /Time should be of type number/);
     assert.throws(() => changeTime(INITIAL_GAME, undefined).time, /Time should be of type number/);
     assert.throws(() => changeTime(INITIAL_GAME, null).time, /Time should be of type number/);
+  });
+
+  it(`Should be tick, expect 29`, () => {
+    assert.equal(tick(changeTime(INITIAL_GAME, 30)).time, 29);
+  });
+
+  it(`Should be tick, expect 28`, () => {
+    assert.equal(tick(tick(changeTime(INITIAL_GAME, 30))).time, 28);
+  });
+
+  it(`Function warningTime should return true`, () => {
+    assert.isTrue(warningTime(tick(tick(changeTime(INITIAL_GAME, 7)))));
+  });
+
+  it(`Function warningTime should return false`, () => {
+    assert.isFalse(warningTime(tick(changeTime(INITIAL_GAME, 7))));
+  });
+
+  it(`Function isTimeOff should return true`, () => {
+    assert.isTrue(isTimeOff(changeTime(INITIAL_GAME, 0)));
+  });
+
+  it(`Function isTimeOff should return false`, () => {
+    assert.isFalse(isTimeOff(tick(changeTime(INITIAL_GAME, 7))));
+  });
+
+  it(`Function isTimeOff should return Error message`, () => {
+    assert.throw(() => isTimeOff(tick(changeTime(INITIAL_GAME, 0))), `Time should not be negative value`);
   });
 });
