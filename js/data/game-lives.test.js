@@ -1,5 +1,5 @@
 import {assert} from "chai";
-import {INITIAL_GAME, repeatFunction} from "./game-data";
+import {INITIAL_GAME} from "./game-data";
 import {changeLives, decreaseLives, isDead} from "./game-lives";
 
 describe(`Check manipulations with lives`, () => {
@@ -26,16 +26,16 @@ describe(`Check manipulations with lives`, () => {
   });
 
   it(`Should decrease lives, expect 1`, () => {
-    assert.equal(repeatFunction(decreaseLives, 2, INITIAL_GAME).lives, 1);
+    assert.equal(decreaseLives(changeLives(INITIAL_GAME, 2)).lives, 1);
   });
 
   it(`Should be false from isDead() function`, () => {
-    assert.isFalse(isDead(repeatFunction(decreaseLives, 1, INITIAL_GAME)));
-    assert.isFalse(isDead(repeatFunction(decreaseLives, 3, INITIAL_GAME)));
+    assert.isFalse(isDead(decreaseLives(INITIAL_GAME)));
+    assert.isFalse(isDead(decreaseLives(changeLives(INITIAL_GAME, 1))));
   });
 
   it(`Should be true from isDead() function`, () => {
-    assert.isTrue(isDead(repeatFunction(decreaseLives, 4, INITIAL_GAME)));
-    assert.isTrue(isDead(repeatFunction(decreaseLives, 5, INITIAL_GAME)));
+    assert.isTrue(isDead(changeLives(INITIAL_GAME, -1)));
+    assert.isTrue(isDead(decreaseLives(changeLives(INITIAL_GAME, 0))));
   });
 });

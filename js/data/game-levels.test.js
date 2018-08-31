@@ -1,5 +1,5 @@
 import {assert} from "chai";
-import {INITIAL_GAME, repeatFunction} from "./game-data";
+import {INITIAL_GAME} from "./game-data";
 import {changeLevel, nextLevel} from "./game-levels";
 
 describe(`Check level changer`, () => {
@@ -26,6 +26,6 @@ describe(`Check level changer`, () => {
   });
 
   it(`Should next level, expect 10`, () => {
-    assert.equal(repeatFunction(nextLevel, 10, INITIAL_GAME).level, 10);
+    assert.equal(nextLevel(changeLevel(INITIAL_GAME, 9)).level, 10);
   });
 });

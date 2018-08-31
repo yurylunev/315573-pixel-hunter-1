@@ -25,12 +25,6 @@ const countScore = (answers, lives) => {
       case `slow`:
         score += 50;
         break;
-      case `wrong`:
-        lives = lives - 1;
-        break;
-    }
-    if (lives < 0) {
-      return -1;
     }
   }
   return score + lives * 50;
