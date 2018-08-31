@@ -1,5 +1,5 @@
 import {assert} from "chai";
-import {INITIAL_GAME} from "./game-data";
+import {INITIAL_GAME, repeatFunction} from "./game-data";
 import {changeLives, decreaseLives, isDead} from "./game-lives";
 
 describe(`Check manipulations with lives`, () => {
@@ -10,8 +10,8 @@ describe(`Check manipulations with lives`, () => {
   });
 
   it(`Should not allow set negative values`, () => {
-    assert.throws(() => changeLives(INITIAL_GAME, -1).lives, /Lives should not be negative value/);
-    assert.throws(() => changeLives(INITIAL_GAME, -10).lives, /Lives should not be negative value/);
+    assert.equal(changeLives(INITIAL_GAME, -1).lives, -1);
+    assert.throw(() => changeLives(INITIAL_GAME, -10), /Lives should not be negative value/);
   });
 
   it(`Should not allow set non number value`, () => {
@@ -26,14 +26,16 @@ describe(`Check manipulations with lives`, () => {
   });
 
   it(`Should decrease lives, expect 1`, () => {
-    assert.equal(decreaseLives(decreaseLives(INITIAL_GAME)).lives, 1);
+    assert.equal(repeatFunction(decreaseLives, 2, INITIAL_GAME).lives, 1);
   });
 
   it(`Should be false from isDead() function`, () => {
-    assert.isFalse(isDead(decreaseLives(decreaseLives(INITIAL_GAME))));
+    assert.isFalse(isDead(repeatFunction(decreaseLives, 1, INITIAL_GAME)));
+    assert.isFalse(isDead(repeatFunction(decreaseLives, 3, INITIAL_GAME)));
   });
 
   it(`Should be true from isDead() function`, () => {
-    assert.isTrue(isDead(decreaseLives(decreaseLives(decreaseLives(decreaseLives(INITIAL_GAME))))));
+    assert.isTrue(isDead(repeatFunction(decreaseLives, 4, INITIAL_GAME)));
+    assert.isTrue(isDead(repeatFunction(decreaseLives, 5, INITIAL_GAME)));
   });
 });

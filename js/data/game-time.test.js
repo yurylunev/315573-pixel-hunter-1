@@ -1,5 +1,5 @@
 import {assert} from "chai";
-import {INITIAL_GAME} from "./game-data";
+import {INITIAL_GAME, repeatFunction} from "./game-data";
 import {changeTime, isTimeOff, tick, warningTime} from "./game-time";
 
 describe(`Check time changer`, () => {
@@ -26,11 +26,11 @@ describe(`Check time changer`, () => {
   });
 
   it(`Should be tick, expect 28`, () => {
-    assert.equal(tick(tick(changeTime(INITIAL_GAME, 30))).time, 28);
+    assert.equal(repeatFunction(tick, 20, changeTime(INITIAL_GAME, 30)).time, 10);
   });
 
   it(`Function warningTime should return true`, () => {
-    assert.isTrue(warningTime(tick(tick(changeTime(INITIAL_GAME, 7)))));
+    assert.isTrue(warningTime(repeatFunction(tick, 2, changeTime(INITIAL_GAME, 7))));
   });
 
   it(`Function warningTime should return false`, () => {

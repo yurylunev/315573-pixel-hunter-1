@@ -6,7 +6,7 @@ const addAnswer = (game, answer) => {
     case `wrong`:
       return Object.freeze(Object.assign({}, game, {answers: [...game.answers, answer]}));
   }
-  throw new Error(`Incorrect answer value`);
+  throw new Error(`Incorrect answer value: ${answer}`);
 };
 
 const countScore = (answers, lives) => {
