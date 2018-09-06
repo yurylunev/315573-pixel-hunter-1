@@ -8,7 +8,7 @@ const getLives = (lives, maxCount = 3) => {
   return `<div class="game__lives">${html}</div>`;
 };
 
-const getHeader = (timer, lives) => {
+const getHeader = (time, lives) => {
   return `  <header class="header">
     <button class="back">
       <span class="visually-hidden">Вернуться к началу</span>
@@ -19,7 +19,7 @@ const getHeader = (timer, lives) => {
         <use xlink:href="img/sprite.svg#logo-small"></use>
       </svg>
     </button>
-    <div class="game__timer">${timer}</div>
+    <div class="game__timer">${time}</div>
     ${getLives(lives)}
   </header>`;
 };

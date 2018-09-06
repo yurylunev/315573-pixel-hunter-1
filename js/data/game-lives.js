@@ -17,4 +17,6 @@ const decreaseLives = (game) => {
 
 const isDead = (game) => (game.lives === -1);
 
-export {changeLives, decreaseLives, isDead};
+const hasLives = (game) => (game.lives > 0);
+
+export {changeLives, decreaseLives, isDead, hasLives};

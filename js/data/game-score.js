@@ -9,6 +9,12 @@ const addAnswer = (game, answer) => {
   throw new Error(`Incorrect answer value: ${answer}`);
 };
 
+const rightAnswersCount = (answers) => answers.filter((answer) => (answer !== `wrong`)).length;
+
+const fastAnswersCount = (answers) => answers.filter((answer) => (answer === `fast`)).length;
+
+const slowAnswersCount = (answers) => answers.filter((answer) => (answer === `slow`)).length;
+
 const countScore = (answers, lives) => {
   if ((answers.length < 10) || (lives < 0)) {
     return -1;
@@ -30,4 +36,4 @@ const countScore = (answers, lives) => {
   return score + lives * 50;
 };
 
-export {addAnswer, countScore};
+export {addAnswer, countScore, rightAnswersCount, fastAnswersCount, slowAnswersCount};
