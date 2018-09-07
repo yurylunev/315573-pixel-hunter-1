@@ -1,10 +1,8 @@
+const answersSet = new Set([`fast`, `correct`, `slow`, `wrong`, `unknown`]);
+
 const addAnswer = (game, answer) => {
-  switch (answer) {
-    case `fast`:
-    case `correct`:
-    case `slow`:
-    case `wrong`:
-      return Object.freeze(Object.assign({}, game, {answers: [...game.answers, answer]}));
+  if (answersSet.has(answer)) {
+    return Object.freeze(Object.assign({}, game, {answers: game.answers.fill(answer, game.level, game.level + 1)}));
   }
   throw new Error(`Incorrect answer value: ${answer}`);
 };
@@ -16,7 +14,7 @@ const fastAnswersCount = (answers) => answers.filter((answer) => (answer === `fa
 const slowAnswersCount = (answers) => answers.filter((answer) => (answer === `slow`)).length;
 
 const countScore = (answers, lives) => {
-  if ((answers.length < 10) || (lives < 0)) {
+  if (lives < 0) {
     return -1;
   }
   let score = 0;

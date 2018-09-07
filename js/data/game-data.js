@@ -45,8 +45,7 @@ const INITIAL_GAME = Object.freeze({
   level: 0,
   lives: 3,
   time: 30,
-  maxQuestions: questions.length,
-  answers: []
+  answers: Array(questions.length).fill(`unknown`),
 });
 
 export {INITIAL_GAME, questions};

@@ -6,7 +6,7 @@ import stats from "./screen-stats";
 import {isDead} from "./data/game-lives";
 
 const getGameContent = (state) => {
-  if ((state.level === state.maxQuestions) || isDead(state)) {
+  if ((state.level === state.answers.length) || isDead(state)) {
     return stats(state);
   }
   switch (questions[state.level].length) {
