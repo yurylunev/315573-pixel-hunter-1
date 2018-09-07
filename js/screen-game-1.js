@@ -31,7 +31,7 @@ const game1 = (state) => {
   const answers = [...game1Element.querySelectorAll(`.game__answer`)];
   answers.forEach((label) => {
     label.control.addEventListener(`click`, () => {
-      let checkedAnswers = [...answers.filter((answer) => answer.control.checked)];
+      const checkedAnswers = [...answers.filter((answer) => answer.control.checked)];
       if (checkedAnswers.length === 2) {
         if (checkedAnswers.reduce((flag, answer, index) => (flag && (answer.control.value === questions[state.level][index][1])), true)) {
           showScreen(getGameContent(nextLevel(addAnswer(state, `correct`))));
