@@ -3,6 +3,7 @@ import {addAnswer, countScore} from "./game-score";
 import {INITIAL_GAME} from "./game-data";
 import {nextLevel} from "./game-levels";
 import {decreaseLives} from "./game-lives";
+import {getQuestions} from "./game-questions";
 
 const ANSWERS_LESS_10 = [`wrong`, `correct`, `fast`, `wrong`, `wrong`, `wrong`, `unknown`, `unknown`, `unknown`, `unknown`];
 const ANSWERS_CORRECT = [`correct`, `correct`, `correct`, `correct`, `correct`, `correct`, `correct`, `correct`, `correct`, `correct`];
@@ -11,7 +12,7 @@ const ANSWERS_SLOW = [`wrong`, `slow`, `slow`, `slow`, `slow`, `slow`, `slow`, `
 const ANSWERS_1000 = [`wrong`, `correct`, `fast`, `fast`, `slow`, `fast`, `fast`, `slow`, `fast`, `wrong`];
 
 const generateState = (answers) => {
-  let state = Object.assign({}, INITIAL_GAME);
+  let state = getQuestions(INITIAL_GAME);
   for (let answer of answers) {
     if (answer !== `wrong`) {
       state = Object.assign(nextLevel(addAnswer(state, answer)));

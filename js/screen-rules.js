@@ -2,6 +2,7 @@ import {getElementFromTemplate, showScreen} from "./utlis";
 import greeting from "./screen-greeting";
 import {INITIAL_GAME} from "./data/game-data";
 import getGameContent from "./game-content";
+import {getQuestions} from "./data/game-questions";
 
 const rules = () => {
   const rulesElement = getElementFromTemplate(`  <header class="header">
@@ -33,7 +34,7 @@ const rules = () => {
   </section>`);
 
   (rulesElement.querySelector(`.rules__button`)).addEventListener(`click`, () => {
-    showScreen(getGameContent(INITIAL_GAME));
+    showScreen(getGameContent(getQuestions(INITIAL_GAME)));
   });
 
   const rulesFormInput = rulesElement.querySelector(`.rules__input`);
