@@ -4,17 +4,17 @@ import game3 from "./screen-game-3";
 import stats from "./screen-stats";
 import {isDead} from "./data/game-lives";
 
-const getGameContent = (state) => {
+const getGameContent = (callback, state) => {
   if ((state.level === state.answers.length) || isDead(state)) {
-    return stats(state);
+    return stats(callback, state);
   }
   switch (state.questions[state.level].length) {
     case 2:
-      return game1(state);
+      return game1(callback, state);
     case 1:
-      return game2(state);
+      return game2(callback, state);
     case 3:
-      return game3(state);
+      return game3(callback, state);
   }
   return 0;
 };

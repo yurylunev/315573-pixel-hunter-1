@@ -7,7 +7,7 @@ import {nextLevel} from "./data/game-levels";
 import {addAnswer} from "./data/game-score";
 import {decreaseLives} from "./data/game-lives";
 
-const game2 = (state) => {
+const game2 = (callback, state) => {
   const game2Element = getElementFromTemplate(`${getHeader(state.time, state.lives)}
   <section class="game">
     <p class="game__task">Угадай, фото или рисунок?</p>
