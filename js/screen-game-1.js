@@ -2,12 +2,10 @@ import {getElementFromTemplate, showScreen} from "./utlis";
 import greeting from "./screen-greeting";
 import getStatusBar from "./answers-status";
 import getHeader from "./game-header";
-import getGameContent from "./game-content";
-import {nextLevel} from "./data/game-levels";
-import {addAnswer} from "./data/game-score";
-import {decreaseLives} from "./data/game-lives";
 
-const game1 = (callback, state) => {
+const game1 = (state, callback) => {
+  console.log(state);
+  console.log(`Callback: ${callback}`);
   const game1Element = getElementFromTemplate(`${getHeader(state.time, state.lives)}
   <section class="game">
     <p class="game__task">Угадайте для каждого изображения фото или рисунок?</p>
@@ -29,16 +27,7 @@ const game1 = (callback, state) => {
 
   const answers = [...game1Element.querySelectorAll(`.game__answer`)];
   answers.forEach((label) => {
-    label.control.addEventListener(`click`, () => {
-      const checkedAnswers = [...answers.filter((answer) => answer.control.checked)];
-      if (checkedAnswers.length === 2) {
-        if (checkedAnswers.reduce((flag, answer, index) => (flag && (answer.control.value === state.questions[state.level][index][1])), true)) {
-          showScreen(getGameContent(nextLevel(addAnswer(state, `correct`))));
-        } else {
-          showScreen(getGameContent(nextLevel(addAnswer(decreaseLives(state), `wrong`))));
-        }
-      }
-    });
+    label.control.addEventListener(`click`, callback);
   });
 
   (game1Element.querySelector(`button.back`)).addEventListener(`click`, () => {

@@ -12,4 +12,8 @@ const nextLevel = (game) => {
   return changeLevel(game, game.level + 1);
 };
 
-export {changeLevel, nextLevel};
+const isFinalQuestion = (game) => {
+  return game.level === game.questions.length;
+};
+
+export {changeLevel, nextLevel, isFinalQuestion};

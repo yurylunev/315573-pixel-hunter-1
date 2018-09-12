@@ -2,12 +2,10 @@ import {getElementFromTemplate, showScreen} from "./utlis";
 import greeting from "./screen-greeting";
 import getHeader from "./game-header";
 import getStatusBar from "./answers-status";
-import getGameContent from "./game-content";
-import {nextLevel} from "./data/game-levels";
-import {addAnswer} from "./data/game-score";
-import {decreaseLives} from "./data/game-lives";
 
-const game2 = (callback, state) => {
+const game2 = (state, callback) => {
+  console.log(`Game 2 state`);
+  console.log(state);
   const game2Element = getElementFromTemplate(`${getHeader(state.time, state.lives)}
   <section class="game">
     <p class="game__task">Угадай, фото или рисунок?</p>
@@ -29,13 +27,9 @@ const game2 = (callback, state) => {
 
   [...game2Element.querySelectorAll(`.game__answer`)].forEach((answer) => {
     if (state.questions[state.level][0][1] === answer.control.value) {
-      answer.addEventListener(`click`, () => {
-        showScreen(getGameContent(nextLevel(addAnswer(state, `correct`))));
-      });
+      answer.addEventListener(`click`, callback);
     } else {
-      answer.addEventListener(`click`, () => {
-        showScreen(getGameContent(nextLevel(addAnswer(decreaseLives(state), `wrong`))));
-      });
+      answer.addEventListener(`click`, callback);
     }
   });
 

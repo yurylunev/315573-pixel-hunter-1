@@ -1,7 +1,6 @@
-import {getElementFromTemplate, showScreen} from "./utlis";
-import rules from "./screen-rules";
+import {getElementFromTemplate} from "./utlis";
 
-const greeting = () => {
+const greeting = (state, callback) => {
   const greetingElement = getElementFromTemplate(` <section class="greeting central--blur">
     <img class="greeting__logo" src="img/logo_ph-big.svg" width="201" height="89" alt="Pixel Hunter">
     <div class="greeting__asterisk asterisk"><span class="visually-hidden">Я просто красивая звёздочка</span>*</div>
@@ -23,9 +22,7 @@ const greeting = () => {
     </button>
   </section>`);
 
-  (greetingElement.querySelector(`.greeting__continue`)).addEventListener(`click`, () => {
-    showScreen(rules());
-  });
+  (greetingElement.querySelector(`.greeting__continue`)).addEventListener(`click`, callback);
   return greetingElement;
 };
 

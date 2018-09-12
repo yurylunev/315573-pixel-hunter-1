@@ -1,10 +1,7 @@
 import {getElementFromTemplate, showScreen} from "./utlis";
 import greeting from "./screen-greeting";
-import {INITIAL_GAME} from "./data/game-data";
-import getGameContent from "./game-content";
-import {getQuestions} from "./data/game-questions";
 
-const rules = () => {
+const rules = (state, callback) => {
   const rulesElement = getElementFromTemplate(`  <header class="header">
     <button class="back">
       <span class="visually-hidden">Вернуться к началу</span>
@@ -33,9 +30,7 @@ const rules = () => {
     </form>
   </section>`);
 
-  (rulesElement.querySelector(`.rules__button`)).addEventListener(`click`, () => {
-    showScreen(getGameContent(getQuestions(INITIAL_GAME)));
-  });
+  (rulesElement.querySelector(`.rules__button`)).addEventListener(`click`, callback);
 
   const rulesFormInput = rulesElement.querySelector(`.rules__input`);
   const rulesFormButton = rulesElement.querySelector(`.rules__button`);

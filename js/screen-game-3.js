@@ -2,12 +2,8 @@ import {getElementFromTemplate, showScreen} from "./utlis";
 import greeting from "./screen-greeting";
 import getHeader from "./game-header";
 import getStatusBar from "./answers-status";
-import getGameContent from "./game-content";
-import {nextLevel} from "./data/game-levels";
-import {addAnswer} from "./data/game-score";
-import {decreaseLives} from "./data/game-lives";
 
-const game3 = (callback, state) => {
+const game3 = (state, callback) => {
   const game3Element = getElementFromTemplate(`${getHeader(state.time, state.lives)}
   <section class="game">
     <p class="game__task">Найдите рисунок среди изображений</p>
@@ -21,13 +17,9 @@ const game3 = (callback, state) => {
 
   [...game3Element.querySelectorAll(`.game__option`)].forEach((answer, index) => {
     if (state.questions[state.level][index][1] === `paint`) {
-      answer.addEventListener(`click`, () => {
-        showScreen(getGameContent(nextLevel(addAnswer(state, `correct`))));
-      });
+      answer.addEventListener(`click`, callback);
     } else {
-      answer.addEventListener(`click`, () => {
-        showScreen(getGameContent(nextLevel(addAnswer(decreaseLives(state), `wrong`))));
-      });
+      answer.addEventListener(`click`, callback);
     }
   });
 
