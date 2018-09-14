@@ -25,9 +25,9 @@ const game2 = (callback, state) => {
 
   [...game2Element.querySelectorAll(`.game__answer`)].forEach((answer) => {
     if (state.questions[state.level][0][1] === answer.control.value) {
-      answer.addEventListener(`click`, callback);
+      answer.addEventListener(`click`, () => callback(`correct`));
     } else {
-      answer.addEventListener(`click`, callback);
+      answer.addEventListener(`click`, () => callback(`wrong`));
     }
   });
 

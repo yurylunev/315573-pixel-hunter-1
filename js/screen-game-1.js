@@ -25,7 +25,16 @@ const game1 = (callback, state) => {
 
   const answers = [...game1Element.querySelectorAll(`.game__answer`)];
   answers.forEach((label) => {
-    label.control.addEventListener(`click`, callback);
+    label.control.addEventListener(`click`, () => {
+      let checkedAnswers = [...answers.filter((answer) => answer.control.checked)];
+      if (checkedAnswers.length === 2) {
+        if (checkedAnswers.reduce((flag, answer, index) => (flag && (answer.control.value === state.questions[state.level][index][1])), true)) {
+          callback(`correct`);
+        } else {
+          callback(`wrong`);
+        }
+      }
+    });
   });
 
   (game1Element.querySelector(`button.back`)).addEventListener(`click`, () => {

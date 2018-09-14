@@ -31,7 +31,7 @@ describe(`Check manipulations with lives`, () => {
 
   it(`Should be false from isDead() function`, () => {
     assert.isFalse(isDead(decreaseLives(INITIAL_GAME)));
-    assert.isFalse(isDead(decreaseLives(changeLives(INITIAL_GAME, 1))));
+    assert.isFalse(isDead(decreaseLives(changeLives(INITIAL_GAME, 2))));
   });
 
   it(`Should be true from isDead() function`, () => {

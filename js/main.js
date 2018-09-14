@@ -8,22 +8,26 @@ import {INITIAL_GAME} from "./data/game-data";
 import game2 from "./screen-game-2";
 import game3 from "./screen-game-3";
 import stats from "./screen-stats";
-import {isDead} from "./data/game-lives";
+import {decreaseLives, isDead} from "./data/game-lives";
 import {isFinalQuestion, nextLevel} from "./data/game-levels";
+import {addAnswer} from "./data/game-score";
 
 const renderScreen = (screen, callback, state) => showScreen(screen(callback, state));
 
-const getGameContent = (state) => [game2, game1, game3][state.questions[state.level].length - 1];
+const getGameContent = (questions, level) => [game2, game1, game3][questions[level].length - 1];
 
-const gameTick = (state) => {
+const gameTick = (state, returnValue) => {
   if (isDead(state) || isFinalQuestion(state)) {
-    return renderScreen(stats, state);
+    return renderScreen(stats, addAnswer(state, returnValue));
   } else {
-    return onGameStart(nextLevel(state));
+    if (returnValue === `wrong`) {
+      return onGameStart(nextLevel(decreaseLives(addAnswer(state, returnValue))));
+    }
+    return onGameStart(nextLevel(addAnswer(state, returnValue)));
   }
 };
 
-const onGameStart = (state) => renderScreen(getGameContent(state), () => gameTick(state), state);
+const onGameStart = (state) => renderScreen(getGameContent(state.questions, state.level), (returnValue) => gameTick(state, returnValue), state);
 
 const onContinueClick = () => renderScreen(rules, () => onGameStart(getQuestions(INITIAL_GAME)));
 

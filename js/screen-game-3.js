@@ -17,9 +17,9 @@ const game3 = (callback, state) => {
 
   [...game3Element.querySelectorAll(`.game__option`)].forEach((answer, index) => {
     if (state.questions[state.level][index][1] === `paint`) {
-      answer.addEventListener(`click`, callback);
+      answer.addEventListener(`click`, () => callback(`correct`));
     } else {
-      answer.addEventListener(`click`, callback);
+      answer.addEventListener(`click`, () => callback(`wrong`));
     }
   });
 
