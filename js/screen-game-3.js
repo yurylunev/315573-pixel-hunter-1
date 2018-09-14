@@ -3,7 +3,7 @@ import greeting from "./screen-greeting";
 import getHeader from "./game-header";
 import getStatusBar from "./answers-status";
 
-const game3 = (state, callback) => {
+const game3 = (callback, state) => {
   const game3Element = getElementFromTemplate(`${getHeader(state.time, state.lives)}
   <section class="game">
     <p class="game__task">Найдите рисунок среди изображений</p>

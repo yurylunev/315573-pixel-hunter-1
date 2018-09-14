@@ -13,7 +13,7 @@ const nextLevel = (game) => {
 };
 
 const isFinalQuestion = (game) => {
-  return game.level === game.questions.length;
+  return game.level === game.questions.length - 1;
 };
 
 export {changeLevel, nextLevel, isFinalQuestion};

@@ -1,7 +1,7 @@
 import {getElementFromTemplate, showScreen} from "./utlis";
 import greeting from "./screen-greeting";
 
-const rules = (state, callback) => {
+const rules = (callback) => {
   const rulesElement = getElementFromTemplate(`  <header class="header">
     <button class="back">
       <span class="visually-hidden">Вернуться к началу</span>

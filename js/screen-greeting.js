@@ -1,6 +1,6 @@
 import {getElementFromTemplate} from "./utlis";
 
-const greeting = (state, callback) => {
+const greeting = (onContinueClick) => {
   const greetingElement = getElementFromTemplate(` <section class="greeting central--blur">
     <img class="greeting__logo" src="img/logo_ph-big.svg" width="201" height="89" alt="Pixel Hunter">
     <div class="greeting__asterisk asterisk"><span class="visually-hidden">Я просто красивая звёздочка</span>*</div>
@@ -22,7 +22,7 @@ const greeting = (state, callback) => {
     </button>
   </section>`);
 
-  (greetingElement.querySelector(`.greeting__continue`)).addEventListener(`click`, callback);
+  (greetingElement.querySelector(`.greeting__continue`)).addEventListener(`click`, onContinueClick);
   return greetingElement;
 };
 

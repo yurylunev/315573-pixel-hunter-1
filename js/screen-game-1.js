@@ -3,9 +3,7 @@ import greeting from "./screen-greeting";
 import getStatusBar from "./answers-status";
 import getHeader from "./game-header";
 
-const game1 = (state, callback) => {
-  console.log(state);
-  console.log(`Callback: ${callback}`);
+const game1 = (callback, state) => {
   const game1Element = getElementFromTemplate(`${getHeader(state.time, state.lives)}
   <section class="game">
     <p class="game__task">Угадайте для каждого изображения фото или рисунок?</p>

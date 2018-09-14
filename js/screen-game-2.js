@@ -3,9 +3,7 @@ import greeting from "./screen-greeting";
 import getHeader from "./game-header";
 import getStatusBar from "./answers-status";
 
-const game2 = (state, callback) => {
-  console.log(`Game 2 state`);
-  console.log(state);
+const game2 = (callback, state) => {
   const game2Element = getElementFromTemplate(`${getHeader(state.time, state.lives)}
   <section class="game">
     <p class="game__task">Угадай, фото или рисунок?</p>
